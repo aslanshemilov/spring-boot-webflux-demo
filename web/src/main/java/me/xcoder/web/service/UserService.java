@@ -38,8 +38,8 @@ public class UserService {
      * @return
      */
     @Transactional
-    public Mono<User> add(User user) {
-        return Mono.justOrEmpty(userRepository.save(user));
+    public Mono<User> add(Mono<User> user) {
+        return Mono.justOrEmpty(userRepository.save(user.block()));
     }
 
     /**
@@ -47,8 +47,8 @@ public class UserService {
      * @return
      */
     @Transactional
-    public Mono<User> update(Long id,User user) {
-        return Mono.justOrEmpty(userRepository.saveAndFlush(user));
+    public Mono<User> update(Long id,Mono<User> user) {
+        return Mono.justOrEmpty(userRepository.saveAndFlush(user.block()));
     }
 
 }

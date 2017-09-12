@@ -15,7 +15,7 @@ class UserController {
     private UserService userService;
 
     @PostMapping(value = "/add")
-    Mono<User> create(@RequestBody User user) {
+    Mono<User> create(@RequestBody Mono<User> user) {
         return userService.add(user);
     }
 
@@ -30,7 +30,7 @@ class UserController {
     }
 
     @PostMapping(value = "/update/{id}")
-    Mono<User> update(@PathVariable Long id,@RequestBody User user){
+    Mono<User> update(@PathVariable Long id,@RequestBody Mono<User> user){
         return userService.update(id,user);
     }
 

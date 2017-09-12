@@ -44,14 +44,12 @@ public class UserRouter {
     }
 
     private Mono<ServerResponse> add(ServerRequest req) {
-        User user = req.bodyToMono(User.class).block();
-        return ok().body(userService.add(user), User.class);
+        return ok().body(userService.add(req.bodyToMono(User.class)), User.class);
     }
 
     private Mono<ServerResponse> update(ServerRequest req) {
         Long id = Long.valueOf(req.pathVariable("id"));
-        User user = req.bodyToMono(User.class).block();
-        return ok().body(userService.update(id,user), User.class);
+        return ok().body(userService.update(id,req.bodyToMono(User.class)), User.class);
     }
 
 }
