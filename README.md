@@ -8,4 +8,4 @@ support
 
 dependency Spring-data-JPA
 
-H2 database for test
+test in H2 database
