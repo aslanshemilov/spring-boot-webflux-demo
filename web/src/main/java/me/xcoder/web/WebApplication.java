@@ -1,6 +1,5 @@
 package me.xcoder.web;
 
-import me.xcoder.web.router.HelloRouter;
 import me.xcoder.web.router.UserRouter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,7 +15,7 @@ public class WebApplication {
 	}
 
 	@Bean
-	public RouterFunction<ServerResponse> monoRouterFunction(HelloRouter helloRouter, UserRouter userRouter) {
-		return helloRouter.routes().and(userRouter.routes());
+	public RouterFunction<ServerResponse> monoRouterFunction(UserRouter userRouter) {
+		return userRouter.routes();
 	}
 }

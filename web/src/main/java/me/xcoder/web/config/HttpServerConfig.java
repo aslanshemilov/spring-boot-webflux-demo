@@ -8,6 +8,7 @@ import org.springframework.http.server.reactive.HttpHandler;
 import org.springframework.http.server.reactive.ReactorHttpHandlerAdapter;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
+import reactor.ipc.netty.http.server.HttpServer;
 
 @Configuration
 public class HttpServerConfig {
@@ -19,7 +20,7 @@ public class HttpServerConfig {
     }
 
     @Bean
-    public reactor.ipc.netty.http.server.HttpServer httpServer(RouterFunction<?> routerFunction) {
+    public HttpServer httpServer(RouterFunction<?> routerFunction) {
         HttpHandler httpHandler = RouterFunctions.toHttpHandler(routerFunction);
         ReactorHttpHandlerAdapter adapter = new ReactorHttpHandlerAdapter(httpHandler);
         reactor.ipc.netty.http.server.HttpServer server = reactor.ipc.netty.http.server.HttpServer.create(environment.getProperty("server.address"),

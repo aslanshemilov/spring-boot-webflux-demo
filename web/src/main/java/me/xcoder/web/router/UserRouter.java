@@ -14,16 +14,10 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.n
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 import static org.springframework.web.reactive.function.server.ServerResponse.ok;
 
-import java.util.List;
-
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Component;
-import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerRequest;
 
-
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Component
@@ -35,27 +29,29 @@ public class UserRouter {
     public RouterFunction<ServerResponse> routes() {
         return nest(path("/user"),
                 route(GET("/list").and(accept(APPLICATION_JSON)), this::listAll)
-                        .andRoute(GET("/list2").and(accept(APPLICATION_JSON)), this::findAllMono)
-                        .andRoute(POST("/save").and(accept(APPLICATION_JSON)), this::save)
+                        .andRoute(GET("/{id}").and(accept(APPLICATION_JSON)), this::findById)
+                        .andRoute(POST("/add").and(accept(APPLICATION_JSON)), this::add)
                         .andRoute(POST("/update/{id}").and(accept(APPLICATION_JSON)), this::update));
     }
 
+    private Mono<ServerResponse> findById(ServerRequest req){
+        Long id = Long.valueOf(req.pathVariable("id"));
+        return ok().body(userService.findById(id),User.class);
+    }
+
     private Mono<ServerResponse> listAll(ServerRequest req) {
-        return ok().body(userService.findAll(req), User.class);
+        return ok().body(userService.findAll(), User.class);
     }
 
-    private Mono<ServerResponse> findAllMono(ServerRequest req) {
-        return ok().body(BodyInserters.fromPublisher(userService.findAllMono(),
-                new ParameterizedTypeReference<List<User>>() {
-                }));
-    }
-
-    private Mono<ServerResponse> save(ServerRequest req) {
-        return ok().body(Flux.just(userService.save(req)), User.class);
+    private Mono<ServerResponse> add(ServerRequest req) {
+        User user = req.bodyToMono(User.class).block();
+        return ok().body(userService.add(user), User.class);
     }
 
     private Mono<ServerResponse> update(ServerRequest req) {
-        return ok().body(Flux.just(userService.update(req)), User.class);
+        Long id = Long.valueOf(req.pathVariable("id"));
+        User user = req.bodyToMono(User.class).block();
+        return ok().body(userService.update(id,user), User.class);
     }
 
 }
