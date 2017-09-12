@@ -2,7 +2,7 @@
 
 support 
 ## Annotation-based Programming Model 
-  domain-repository-service-controller) 
+  domain-repository-service-controller 
 ## Functional Programming Model
   domain-repository-service-router
 
