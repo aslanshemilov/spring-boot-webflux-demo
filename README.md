@@ -7,3 +7,5 @@ support
   domain-repository-service-router
 
 dependency Spring-data-JPA
+
+H2 database for test
