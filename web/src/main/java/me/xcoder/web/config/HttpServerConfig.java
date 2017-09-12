@@ -23,7 +23,8 @@ public class HttpServerConfig {
     public HttpServer httpServer(RouterFunction<?> routerFunction) {
         HttpHandler httpHandler = RouterFunctions.toHttpHandler(routerFunction);
         ReactorHttpHandlerAdapter adapter = new ReactorHttpHandlerAdapter(httpHandler);
-        reactor.ipc.netty.http.server.HttpServer server = reactor.ipc.netty.http.server.HttpServer.create(environment.getProperty("server.address"),
+        HttpServer server = HttpServer.create(
+                environment.getProperty("server.address"),
                 Integer.valueOf(environment.getProperty("server.port")));
         server.newHandler(adapter);
         return server;
