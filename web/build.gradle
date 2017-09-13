@@ -39,7 +39,8 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-webflux')
 	compileOnly('org.projectlombok:lombok')
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
-	compile 'org.projectreactor:reactor-spring:1.0.1.RELEASE'
+	compile('org.springframework.boot:spring-boot-starter-actuator')
+	compile('org.projectreactor:reactor-spring:1.0.1.RELEASE')
 	compile('com.h2database:h2:1.4.196')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile('io.projectreactor:reactor-test')

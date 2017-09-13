@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
+// remove @SpringBootApplication and @ComponentScan, replace with @EnableAutoConfiguration
 @SpringBootApplication
 public class WebApplication {
 
