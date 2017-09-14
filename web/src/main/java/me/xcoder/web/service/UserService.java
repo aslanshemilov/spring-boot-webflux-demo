@@ -3,13 +3,13 @@ package me.xcoder.web.service;
 import me.xcoder.web.domain.User;
 import me.xcoder.web.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-@Component
+@Service
 public class UserService {
 
     @Autowired
