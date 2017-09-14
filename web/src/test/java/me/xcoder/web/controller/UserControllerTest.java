@@ -36,7 +36,7 @@ public class UserControllerTest {
         this.webClient.post().uri("/person/add")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .body(Mono.just(user),User.class).exchange()
-                .expectStatus().is4xxClientError();
+                .expectStatus().isOk();
 //                .expectBody(User.class).isEqualTo(user);
 //                .consumeWith(result -> assertEquals("Response result","abcd", result.getResponseBody().getName()));
     }
@@ -46,7 +46,7 @@ public class UserControllerTest {
         User user = new User();
         user.setName("findById");
         User newUser = userService.add(Mono.just(user)).block();
-        this.webClient.get().uri(String.format("/person/%s",newUser.getId()))
+        this.webClient.get().uri("/person/{id}",newUser.getId())
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody(User.class).isEqualTo(newUser);
